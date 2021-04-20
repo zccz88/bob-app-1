@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
-import { changePassword, isLoggedInUser, signIn } from "../../actions";
-import Layout from "../../components/Layout";
-import Card from "../../components/UI/Card";
+import { changePassword } from "../../actions";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-const ChangePassword = () => {
+const ChangePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const classes = useStyles();
-  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onChangePassword = (e) => {
@@ -37,6 +31,8 @@ const ChangePassword = () => {
     } else if (newPassword !== newPasswordCheck) {
       alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
     }
+
+    return <Redirect to="/profile" />;
   };
 
   return (
@@ -135,4 +131,4 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-export default ChangePassword;
+export default ChangePasswordPage;
