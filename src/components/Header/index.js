@@ -10,8 +10,8 @@ const Header = ({ title }) => {
   const dispatch = useDispatch();
 
   return (
-    <AppBar position="static">
-      <Toolbar color="inherit">
+    <AppBar position="static" style={{ backgroundColor: "#fafafa", color: "#c62828" }}>
+      <Toolbar style={{ display: "flex", justifyContent: "center" }}>
         <h2 className="title">{title}</h2>
       </Toolbar>
     </AppBar>

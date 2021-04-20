@@ -55,6 +55,22 @@ export default (state = initState, action) => {
         error: action.payload.error,
       };
       break;
+
+    case `${authConstants.DELETE_USER}_REQUEST`:
+      break;
+
+    case `${authConstants.DELETE_USER}_SUCCESS`:
+      state = {
+        ...initState,
+      };
+      break;
+
+    case `${authConstants.DELETE_USER}_FAILURE`:
+      state = {
+        ...state,
+        error: action.payload.error,
+      };
+      break;
   }
 
   return state;

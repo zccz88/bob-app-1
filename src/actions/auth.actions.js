@@ -1,4 +1,4 @@
-import { auth, firestore } from "../fbase";
+import { auth, firestore, firebaseInstance } from "../fbase";
 import { authConstants } from "./constants";
 
 export const signup = (user) => {
@@ -143,6 +143,56 @@ export const logout = (uid) => {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+};
+
+export const reauthentificate = (currentPassword) => {
+  const user = auth.currentUser;
+  const cred = firebaseInstance.auth.EmailAuthProvider.credential(user.email, currentPassword);
+  return user.reauthenticateWithCredential(cred);
+};
+
+export const changePassword = (currentPassword, newPassword) => {
+  return async (dispatch) => {
+    dispatch({ type: `${authConstants.CHANGE_PASSWORD}_REQUEST` });
+    reauthentificate(currentPassword)
+      .then(() => {
+        const user = auth.currentUser;
+        user
+          .updatePassword(newPassword)
+          .then(() => {
+            alert("비밀번호 변경 완료");
+          })
+          .catch((error) => {
+            alert("현재 비밀번호가 일치하지 않습니다.");
+          });
+      })
+      .catch((error) => {
+        alert("현재 비밀번호가 일치하지 않습니다.");
+      });
+  };
+};
+
+export const deleteAccount = (uid) => {
+  return async (dispatch) => {
+    dispatch({ type: `${authConstants.DELETE_USER}_REQUEST` });
+    const db = firestore;
+    db.collection("users")
+      .doc(uid)
+      .delete()
+      .then(() => {
+        const user = auth.currentUser;
+        user
+          .delete()
+          .then(() => {
+            dispatch({ type: `${authConstants.DELETE_USER}_SUCCESS` });
+            alert("회원 탈퇴 성공");
+            localStorage.clear();
+          })
+          .catch((error) => {
+            alert("회원 탈퇴 실패");
+          });
       });
   };
 };
