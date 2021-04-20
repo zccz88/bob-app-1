@@ -6,18 +6,18 @@ const Navbar = () => {
   const { path } = useParams();
   console.log(path);
   return (
-    <nav class="nav">
-      <Link to="/board" class="nav__link">
-        <i class="material-icons nav__icon">dashboard</i>
-        <span class="nav__text">게시판</span>
+    <nav className="nav">
+      <Link to="/board" className="nav__link">
+        <i className="material-icons nav__icon">dashboard</i>
+        <span className="nav__text">게시판</span>
       </Link>
-      <Link to="/chatlist" class="nav__link">
-        <i class="material-icons nav__icon">chat</i>
-        <span class="nav__text">채팅목록</span>
+      <Link to="/chatlist" className="nav__link">
+        <i className="material-icons nav__icon">chat</i>
+        <span className="nav__text">채팅목록</span>
       </Link>
-      <Link to="/profile" class="nav__link">
-        <i class="material-icons nav__icon">person</i>
-        <span class="nav__text">프로필</span>
+      <Link to="/profile" className="nav__link">
+        <i className="material-icons nav__icon">person</i>
+        <span className="nav__text">프로필</span>
       </Link>
     </nav>
   );

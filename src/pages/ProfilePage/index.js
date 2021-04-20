@@ -32,10 +32,10 @@ const ProfilePage = () => {
       <section className="account">
         <h3>계정</h3>
         <Link to="/changepassword">비밀번호 변경</Link>
-        <Link to="/delete">회원 탈퇴</Link>
+        <Link to="/deleteuser">회원 탈퇴</Link>
       </section>
       <div className="buttons">
-        <button class="btn btn-logout" onClick={() => dispatch(logout(auth.uid))}>
+        <button className="btn btn-logout" onClick={() => dispatch(logout(auth.uid))}>
           <h3>로그아웃</h3>
         </button>
       </div>

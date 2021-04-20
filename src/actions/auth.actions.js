@@ -155,7 +155,7 @@ export const reauthentificate = (currentPassword) => {
 
 export const changePassword = (currentPassword, newPassword) => {
   return async (dispatch) => {
-    dispatch({ type: `${authConstants.USER_LOGOUT}_REQUEST` });
+    dispatch({ type: `${authConstants.CHANGE_PASSWORD}_REQUEST` });
     reauthentificate(currentPassword)
       .then(() => {
         const user = auth.currentUser;
@@ -176,7 +176,7 @@ export const changePassword = (currentPassword, newPassword) => {
 
 export const deleteAccount = (uid) => {
   return async (dispatch) => {
-    dispatch({ type: `${authConstants.USER_LOGOUT}_REQUEST` });
+    dispatch({ type: `${authConstants.DELETE_USER}_REQUEST` });
     const db = firestore;
     db.collection("users")
       .doc(uid)
@@ -186,8 +186,9 @@ export const deleteAccount = (uid) => {
         user
           .delete()
           .then(() => {
+            dispatch({ type: `${authConstants.DELETE_USER}_SUCCESS` });
             alert("회원 탈퇴 성공");
-            logout(uid);
+            localStorage.clear();
           })
           .catch((error) => {
             alert("회원 탈퇴 실패");

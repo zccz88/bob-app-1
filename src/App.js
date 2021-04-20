@@ -7,7 +7,8 @@ import BoardPage from "./pages/BoardPage";
 import BoardDetailPage from "./pages/BoardDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import ChatList from "./pages/ChatList";
-import ChangePassword from "./pages/ChangePassword";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import DeleteUserPage from "./pages/DeleteUserPage";
 import PrivateRoute from "./components/PrivateRoute";
 import { useEffect } from "react";
 import { isLoggedInUser } from "./actions";
@@ -26,14 +27,17 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <PrivateRoute exact path="/" component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <PrivateRoute path="/board" component={BoardPage} />
-        <PrivateRoute path="/board/:boardId" component={BoardDetailPage} />
-        <PrivateRoute path="/chatlist" component={ChatList} />
-        <PrivateRoute path="/profile" component={ProfilePage} />
-        <PrivateRoute path="/changepassword" component={ChangePassword} />
+        <Switch>
+          <PrivateRoute exact path="/" component={HomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signup" component={SignUpPage} />
+          <PrivateRoute path="/board" component={BoardPage} />
+          <PrivateRoute path="/board/:boardId" component={BoardDetailPage} />
+          <PrivateRoute path="/chatlist" component={ChatList} />
+          <PrivateRoute path="/profile" component={ProfilePage} />
+          <PrivateRoute path="/changepassword" component={ChangePasswordPage} />
+          <PrivateRoute path="/deleteuser" component={DeleteUserPage} />
+        </Switch>
       </Router>
     </div>
   );
