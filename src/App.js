@@ -7,6 +7,7 @@ import BoardPage from "./pages/BoardPage";
 import BoardDetailPage from "./pages/BoardDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import ChatList from "./pages/ChatList";
+import ChangePassword from "./pages/ChangePassword";
 import PrivateRoute from "./components/PrivateRoute";
 import { useEffect } from "react";
 import { isLoggedInUser } from "./actions";
@@ -32,6 +33,7 @@ const App = () => {
         <PrivateRoute path="/board/:boardId" component={BoardDetailPage} />
         <PrivateRoute path="/chatlist" component={ChatList} />
         <PrivateRoute path="/profile" component={ProfilePage} />
+        <PrivateRoute path="/changepassword" component={ChangePassword} />
       </Router>
     </div>
   );
