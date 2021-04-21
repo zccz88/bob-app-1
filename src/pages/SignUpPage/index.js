@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { Redirect } from "react-router";
-import Layout from "../../components/Layout";
-import Card from "../../components/UI/Card";
-import { isLoggedInUser, signup } from "../../actions";
+
+import { signup } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
