@@ -2,25 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import { addPost } from "../../actions/board.actions";
-import { getLocation } from "../../utils/getLocation";
+// import useLocalStorage from "../../hooks/useLocalStorage";
+import axios from "axios";
 
 const BoardWritePage = () => {
+  const { kakao } = window;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  let lat;
-  let long;
+  const loadedCoords = localStorage.getItem("coords");
+  const parsedCoords = JSON.parse(loadedCoords);
+  const lat = parsedCoords.latitude;
+  const long = parsedCoords.longitude;
+  const [cityName, setCityName] = useState("");
+  const [dongName, setDongName] = useState("");
+
   useEffect(() => {
-    if (navigator.geolocation) {
-      //위치 정보를 얻기
-      navigator.geolocation.getCurrentPosition((pos) => {
-        lat = pos.coords.latitude; // 위도
-        long = pos.coords.longitude; // 경도
-      });
-      console.log(lat, long);
-    } else {
-      alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
-    }
-  });
+    getLocation();
+  }, []);
+
+  const getLocation = async () => {
+    const key = process.env.REACT_APP_KAKAO_REST_API_KEY;
+    const url = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${long}&y=${lat}&input_coord=WGS84`;
+    const res = await axios.get(url, {
+      headers: { Authorization: "KakaoAK " + key },
+    });
+    // console.log(res.data);
+    // console.log(res.data.documents[0].address.region_2depth_name);
+    // console.log(res.data.documents[0].address.region_3depth_name);
+    // console.log(url);
+    setCityName(res.data.documents[0].address.region_2depth_name);
+    setDongName(res.data.documents[0].address.region_3depth_name);
+  };
 
   const dispatch = useDispatch();
 
@@ -31,7 +43,10 @@ const BoardWritePage = () => {
       content,
       lat,
       long,
+      cityName,
+      dongName,
     };
+    console.log(lat, long);
     dispatch(addPost(contents));
   };
   return (
