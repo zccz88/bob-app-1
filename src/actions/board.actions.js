@@ -13,10 +13,11 @@ export const addPost = (contents) => {
         owner: currentUser.uid,
         date: new Date(),
       })
-      .then(() => {
+      .then((data) => {
         dispatch({
           type: `${boardConstants.ADD_POST}_SUCCESS`,
         });
+        console.log("게시글 등록", data);
       })
       .catch(() => {
         dispatch({
@@ -24,4 +25,8 @@ export const addPost = (contents) => {
         });
       });
   };
+};
+
+export const getList = () => {
+  return (dispatch) => {};
 };

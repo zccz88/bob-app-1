@@ -1,13 +1,10 @@
-import { AppBar, IconButton, Toolbar, MenuIcon, Typography, Button } from "@material-ui/core";
+import { AppBar, Toolbar } from "@material-ui/core";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
-// import "./style.css";
-import { logout } from "../../actions";
+// import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ title }) => {
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  // const auth = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
 
   return (
     <AppBar position="static" style={{ backgroundColor: "#fafafa", color: "#c62828" }}>

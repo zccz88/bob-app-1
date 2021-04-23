@@ -9,7 +9,7 @@ export const signup = (user) => {
     auth
       .createUserWithEmailAndPassword(user.email, user.password)
       .then((data) => {
-        console.log(data);
+        console.log("data: ", data);
         const currentUser = auth.currentUser;
         const name = `${user.firstName} ${user.lastName}`;
         currentUser

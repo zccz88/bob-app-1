@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  getRealtimeUsers,
-  updateMessage,
-  getRealtimeConversations,
-} from "../../actions/user.actions";
-import Layout from "../../components/Layout";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//   getRealtimeUsers,
+//   updateMessage,
+//   getRealtimeConversations,
+// } from "../../actions/user.actions";
+// import Layout from "../../components/Layout";
 import "./style.css";
 
 // const User = ({ user, onClick }) => {
@@ -35,57 +35,57 @@ import "./style.css";
 //   );
 // };
 
-const HomePage = (props) => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  const user = useSelector((state) => state.user);
+const HomePage = () => {
+  // const dispatch = useDispatch();
+  // const auth = useSelector((state) => state.auth);
+  // const user = useSelector((state) => state.user);
 
-  const [chatStarted, setChatStarted] = useState(false);
-  const [chatUser, setChatUser] = useState("");
-  const [message, setMessage] = useState("");
-  const [userUid, setUserUid] = useState(null);
-  let unsubscribe = useRef();
+  // const [chatStarted, setChatStarted] = useState(false);
+  // const [chatUser, setChatUser] = useState("");
+  // const [message, setMessage] = useState("");
+  // const [userUid, setUserUid] = useState(null);
+  // let unsubscribe = useRef();
 
-  useEffect(() => {
-    unsubscribe.current = dispatch(getRealtimeUsers(auth.uid))
-      .then((unsubscribe) => {
-        return unsubscribe;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   unsubscribe.current = dispatch(getRealtimeUsers(auth.uid))
+  //     .then((unsubscribe) => {
+  //       return unsubscribe;
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    return () => {
-      unsubscribe.current.then((f) => f()).catch((error) => console.log(error));
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     unsubscribe.current.then((f) => f()).catch((error) => console.log(error));
+  //   };
+  // }, []);
 
-  const initChat = (user) => {
-    setChatStarted(true);
-    setChatUser(`${user.firstName} ${user.lastName}`);
-    setUserUid(user.uid);
+  // const initChat = (user) => {
+  //   setChatStarted(true);
+  //   setChatUser(`${user.firstName} ${user.lastName}`);
+  //   setUserUid(user.uid);
 
-    dispatch(getRealtimeConversations({ uid_1: auth.uid, uid_2: user.uid }));
+  //   dispatch(getRealtimeConversations({ uid_1: auth.uid, uid_2: user.uid }));
 
-    console.log(user);
-  };
+  //   console.log(user);
+  // };
 
-  const submitMessage = (e) => {
-    const msgObj = {
-      user_uid_1: auth.uid,
-      user_uid_2: userUid,
-      message,
-    };
+  // const submitMessage = (e) => {
+  //   const msgObj = {
+  //     user_uid_1: auth.uid,
+  //     user_uid_2: userUid,
+  //     message,
+  //   };
 
-    if (message !== "") {
-      dispatch(updateMessage(msgObj)).then(() => {
-        setMessage("");
-      });
-    }
-    console.log(msgObj);
-  };
+  //   if (message !== "") {
+  //     dispatch(updateMessage(msgObj)).then(() => {
+  //       setMessage("");
+  //     });
+  //   }
+  //   console.log(msgObj);
+  // };
 
   return (
     <div>
