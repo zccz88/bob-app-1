@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 
 const BoardPage = ({ history }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const loadedCoords = localStorage.getItem("coords");
+  // const loadedCoords = localStorage.getItem("coords");
   const [storageLength, setStorageLength] = useState(localStorage.length);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import { addPost } from "../../actions/board.actions";
 // import useLocalStorage from "../../hooks/useLocalStorage";
 import axios from "axios";
 
 const BoardWritePage = () => {
-  const { kakao } = window;
+  // const { kakao } = window;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const loadedCoords = localStorage.getItem("coords");

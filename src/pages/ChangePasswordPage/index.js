@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import { changePassword } from "../../actions";
 import Avatar from "@material-ui/core/Avatar";
