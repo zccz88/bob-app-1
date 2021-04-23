@@ -9,3 +9,10 @@ export const userConstants = {
   GET_REALTIME_USERS: "GET_REALTIME_USERS",
   GET_REALTIME_MESSAGES: "GET_REALTIME_MESSAGES",
 };
+
+export const boardConstants = {
+  ADD_POST: "ADD_POST",
+  REMOVE_POST: "REMOVE_POST",
+  UPDATE_POST: "UPDATE_POST",
+  READ_POST: "READ_POST",
+};
