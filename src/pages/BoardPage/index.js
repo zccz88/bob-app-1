@@ -1,26 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import Header from "../../components/Header";
 
 const BoardPage = ({ history }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const loadedCoords = localStorage.getItem("coords");
-  let lat;
-  let long;
+  const [storageLength, setStorageLength] = useState(localStorage.length);
 
   useEffect(() => {
-    const loadedCoords = localStorage.getItem("coords");
-
-    if (loadedCoords === null) {
+    if (storageLength === 1) {
       navigator.geolocation.getCurrentPosition(handleGeoSuccess, handleGeoError);
-    } else {
-      const parsedCoords = JSON.parse(loadedCoords);
-      console.log(parsedCoords);
+      setIsLoading(true);
     }
-  }, []);
+    console.log(storageLength);
+  }, [storageLength]);
 
   const saveCoords = (coordsObj) => {
     localStorage.setItem("coords", JSON.stringify(coordsObj));
+    setStorageLength((prevLength) => prevLength + 1);
+    setIsLoading(false);
   };
+
+  // if (loadedCoords) {
+  //   setIsLoading(false);
+  // }
 
   const handleGeoSuccess = (position) => {
     const latitude = position.coords.latitude;
@@ -39,7 +42,11 @@ const BoardPage = ({ history }) => {
   return (
     <Layout>
       <Header title={"밥 친구 게시판"} />
-      <button onClick={() => history.push("/write")}>작성</button>
+      {isLoading ? (
+        <div>위치 정보 계산중..</div>
+      ) : (
+        <button onClick={() => history.push("/write")}>작성</button>
+      )}
     </Layout>
   );
 };
