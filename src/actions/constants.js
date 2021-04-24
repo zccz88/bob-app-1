@@ -14,5 +14,5 @@ export const boardConstants = {
   ADD_POST: "ADD_POST",
   REMOVE_POST: "REMOVE_POST",
   UPDATE_POST: "UPDATE_POST",
-  READ_POST: "READ_POST",
+  GET_POST: "GET_POST",
 };

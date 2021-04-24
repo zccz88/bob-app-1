@@ -4,7 +4,6 @@ import "./style.css";
 
 const Navbar = () => {
   const { path } = useParams();
-  console.log(path);
   return (
     <nav className="nav">
       <Link to="/board" className="nav__link">

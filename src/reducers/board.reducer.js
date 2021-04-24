@@ -2,11 +2,7 @@ import { boardConstants } from "../actions/constants";
 import { toast } from "react-toastify";
 
 const initState = {
-  title: "",
-  content: "",
-  create_dt: "",
-  where_at: "",
-  report: 0,
+  posts: [],
 };
 
 export default (state = initState, action) => {
@@ -24,6 +20,18 @@ export default (state = initState, action) => {
 
     case `${boardConstants.REMOVE_POST}_SUCCESS`: {
       toast.warn("게시글이 삭제되었습니다.");
+      return state;
+    }
+
+    case `${boardConstants.GET_POST}_SUCCESS`: {
+      state = {
+        ...state,
+        posts: action.payload.posts,
+      };
+      break;
+    }
+
+    case `${boardConstants.GET_POST}_FAILURE`: {
       return state;
     }
 

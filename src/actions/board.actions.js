@@ -27,6 +27,28 @@ export const addPost = (contents) => {
   };
 };
 
-export const getList = () => {
-  return (dispatch) => {};
+export const getPostList = () => {
+  return (dispatch) => {
+    const db = firestore;
+    db.collection("board")
+      .get()
+      .then((querySnapshot) => {
+        const posts = [];
+        querySnapshot.forEach((document) => {
+          const postObj = {
+            ...document.data(),
+            id: document.id,
+          };
+          posts.push(postObj);
+        });
+        dispatch({
+          type: `${boardConstants.GET_POST}_SUCCESS`,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: `${boardConstants.GET_POST}_FAILURE`,
+        });
+      });
+  };
 };
