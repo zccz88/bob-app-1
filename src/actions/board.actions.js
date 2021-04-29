@@ -5,7 +5,7 @@ export const addPost = (contents) => {
   return (dispatch) => {
     const currentUser = auth.currentUser;
     const db = firestore;
-    console.log(currentUser);
+    console.log(currentUser.uid);
 
     db.collection("board")
       .add({
@@ -27,27 +27,27 @@ export const addPost = (contents) => {
   };
 };
 
-export const getPostList = () => {
+export const updatePost = (contents, boardId) => {
   return (dispatch) => {
+    const currentUser = auth.currentUser;
     const db = firestore;
-    db.collection("board")
-      .get()
-      .then((querySnapshot) => {
-        const posts = [];
-        querySnapshot.forEach((document) => {
-          const postObj = {
-            ...document.data(),
-            id: document.id,
-          };
-          posts.push(postObj);
-        });
-        dispatch({
-          type: `${boardConstants.GET_POST}_SUCCESS`,
-        });
+    console.log(currentUser.uid);
+
+    db.collection("board").doc(boardId)
+      .update({
+        ...contents,
+        owner: currentUser.uid,
+        date: new Date(),
       })
-      .catch((error) => {
+      .then((data) => {
         dispatch({
-          type: `${boardConstants.GET_POST}_FAILURE`,
+          type: `${boardConstants.UPDATE_POST}_SUCCESS`,
+        });
+        console.log("게시글 등록", data);
+      })
+      .catch(() => {
+        dispatch({
+          type: `${boardConstants.UPDATE_POST}_FAILURE`,
         });
       });
   };

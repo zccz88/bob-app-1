@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { isLoggedInUser } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import BoardWritePage from "./pages/BoardWritePage";
+import BoardUpdate from "./pages/BoardUpdate";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App = () => {
           <PrivateRoute path="/changepassword" component={ChangePasswordPage} />
           <PrivateRoute path="/deleteuser" component={DeleteUserPage} />
           <PrivateRoute path="/write" component={BoardWritePage} />
+          <PrivateRoute path="/update/:boardId" component={BoardUpdate} />
         </Switch>
       </Router>
     </div>
@@ -46,3 +48,4 @@ const App = () => {
 };
 
 export default App;
+

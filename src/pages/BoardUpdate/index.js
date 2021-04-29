@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-// import { Redirect } from "react-router";
-import { addPost } from "../../actions/board.actions";
-// import useLocalStorage from "../../hooks/useLocalStorage";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../../actions/board.actions";
 import axios from "axios";
+import { useParams } from "react-router";
+import { firestore } from "../../fbase";
 
-const BoardWritePage = ({history}) => {
-  // const { kakao } = window;
+const BoardUpdate = ({history}) => {
+  const {boardId}=useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const loadedCoords = localStorage.getItem("coords");
@@ -15,6 +15,7 @@ const BoardWritePage = ({history}) => {
   const long = parsedCoords.longitude;
   const [cityName, setCityName] = useState("");
   const [dongName, setDongName] = useState("");
+  const [postData, setPostData] = useState([]);
 
   useEffect(() => {
     getLocation();
@@ -46,10 +47,17 @@ const BoardWritePage = ({history}) => {
       cityName,
       dongName,
     };
-    console.log(lat, long);
-    dispatch(addPost(contents));
+    dispatch(updatePost(contents, boardId));
     history.push('/board');
   };
+
+  const auth = useSelector((state) => state.auth);//정보확인
+  //console.log("현재접속자 = "+auth.uid)
+  //console.log("작성자 = "+postData.owner);
+  
+  const link = firestore.collection("board").doc(boardId).id;
+  //console.log("보드 = "+link);
+
   return (
     <form onSubmit={onSubmitWriteForm}>
       <input
@@ -69,4 +77,4 @@ const BoardWritePage = ({history}) => {
   );
 };
 
-export default BoardWritePage;
+export default BoardUpdate;
