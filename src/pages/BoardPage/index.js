@@ -4,10 +4,12 @@ import Header from "../../components/Header";
 import "./styles.css";
 import { firestore } from "../../fbase";
 import { Link } from "react-router-dom";
+import { SearchSharp } from "@material-ui/icons";
 
 const BoardPage = ({ history }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [storageLength, setStorageLength] = useState(localStorage.length);
+  const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
@@ -55,15 +57,27 @@ const BoardPage = ({ history }) => {
     return () => setIsLoading(false);
   }, [storageLength, handleGeoSuccess]);
 
+
+
   return (
     <Layout>
       <Header title={"밥 친구 게시판"} />
       <div className="container">
-        {posts.map((post) => (
-          <Link key={post.id} to={`/board/${post.id}`}>
-            {post.title}
-          </Link>
-        ))}
+        <input type="text" placeholder="Input title or location..." onChange={(e) => setSearch(e.target.value)}/>
+        {posts.map((post)=>{
+          if(search==""){
+            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
+          }else if
+          (
+           post.title.toLowerCase().indexOf(search.toLowerCase())>=0
+           ||
+           post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0
+           ||
+           post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0
+           ){
+            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
+          }
+        })}
         <div className="buttons">
           {isLoading ? (
             <div className="fix">위치 정보 계산중</div>
@@ -79,3 +93,17 @@ const BoardPage = ({ history }) => {
 };
 
 export default BoardPage;
+/*
+          if(search == ""){
+            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
+          }else if(search == post.title || search == post.cityName || search == post.dongName){
+            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
+          }
+*/
+/*
+          if(search==""){
+            return post.title
+          }else if(post.title.indexOf(search)>=0){
+            return post.title
+          }
+*/

@@ -87,4 +87,3 @@ const BoardDetailPage = ({ history }) => {
 };
 
 export default BoardDetailPage;
-//key = {link} to={`/update/${link}`}
