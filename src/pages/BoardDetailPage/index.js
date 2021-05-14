@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { firestore } from "../../fbase";
 import { Link } from "react-router-dom";
-import { updatePost } from "../../actions/board.actions";
+import { updatePost, addComment } from "../../actions/board.actions";
 
 const BoardDetailPage = ({ history }) => {
   const { boardId } = useParams();
@@ -65,6 +65,16 @@ const BoardDetailPage = ({ history }) => {
   //console.log("보드 = "+link);
 
   const [comment, setComment] = useState([]);
+  const [text, setText] =useState("");
+
+  const comments =(e)=>{
+    e.preventDefault();
+    const comments={
+      text,
+      board_id:boardId
+    };
+    dispatch(addComment)
+  }
 
   const getComment = async () => {
     const db = await firestore.collection("comment").get();
@@ -81,6 +91,8 @@ const BoardDetailPage = ({ history }) => {
     getComment();
     return () => setComment([]);
   }, [setComment]);
+
+  console.log(comment);
 
 
   return (
@@ -100,6 +112,8 @@ const BoardDetailPage = ({ history }) => {
         :null
       }
       </div> 
+      <input type="text" placeholder="input" value={text} onChange={(e)=>setText(e.target.value)}/>
+      <button onClick={comments}>작성</button>
     </form>
   );
 };

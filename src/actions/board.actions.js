@@ -27,6 +27,32 @@ export const addPost = (contents) => {
   };
 };
 
+export const addComment = (comments) => {
+  return (dispatch) => {
+    const currentUser = auth.currentUser;
+    const db = firestore;
+    console.log(currentUser.uid);
+
+    db.collection("comment")
+      .add({
+        ...comments,
+        owner: currentUser.uid,
+        date: new Date(),
+      })
+      .then((data) => {
+        dispatch({
+          type: `${boardConstants.ADD_POST}_SUCCESS`,
+        });
+        console.log("게시글 등록", data);
+      })
+      .catch(() => {
+        dispatch({
+          type: `${boardConstants.ADD_POST}_FAILURE`,
+        });
+      });
+  };
+};
+
 export const updatePost = (contents, boardId) => {
   return (dispatch) => {
     const currentUser = auth.currentUser;
