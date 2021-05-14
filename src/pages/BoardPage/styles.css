@@ -19,10 +19,14 @@
   width: 100px;
 }
 
-.testbutton{
-  position: fixed;
-  display: block;
-  bottom: 80px;
-  margin: 0 auto;
+.input{
+  width: 100%;
+}
+
+.alllocation{
+  width: 100px;
+}
+
+.currentlocation{
   width: 100px;
 }

@@ -84,24 +84,16 @@ const BoardPage = ({ history }) => {
     <Layout>
       <Header title={"밥 친구 게시판"} />
       <div className="container">
-        <input type="text" placeholder="Input title or location..." onChange={(e) => setSearch(e.target.value)}/>
+        <div><input className="input" type="text" placeholder="Input title or location...." onChange={(e) => setSearch(e.target.value)}/></div>
         <div>
-          <button onChange={(e)=>setClick(e.target.value)} onClick={()=>{
-          const count = 0;
-          setClick(count);
-        }}>모든 게시글</button>
-        </div>
-        <div>
-          <button onChange={(e)=>setClick(e.target.value)} onClick={()=>{
-          const count = 1;
-          setClick(count);
-          }}>현재위치게시글</button>
+          <button className="alllocation" onChange={(e)=>setClick(e.target.value)} onClick={()=>{const count = 0; setClick(count);}}>모든 게시글</button>
+          <button className="currentlocation" onChange={(e)=>setClick(e.target.value)} onClick={()=>{const count = 1; setClick(count);}}>현재위치게시글</button>
         </div>
         {posts.map((post)=>{
-          const full = fullName.toLowerCase().indexOf(search.toLowerCase())>=0;
-          const title = post.title.toLowerCase().indexOf(search.toLowerCase())>=0;
-          const city = post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0;
-          const dong =  post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0;
+          const full = fullName.toLowerCase().indexOf(search.toLowerCase())>=0;//지역 풀네임(남양주시 와부읍 도곡리)
+          const title = post.title.toLowerCase().indexOf(search.toLowerCase())>=0;//게시글 제목
+          const city = post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0;//남양주시
+          const dong =  post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0;//와부읍 도곡리
           if(click == 0 && (title || full || city || dong)){
             return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
           }else if(cityName==post.cityName && (title || full || city || dong)){
@@ -123,31 +115,3 @@ const BoardPage = ({ history }) => {
 };
 
 export default BoardPage;
-
-/*
-        {posts.map((post)=>{
-          if(search==""){
-            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
-          }else if
-          (
-           post.title.toLowerCase().indexOf(search.toLowerCase())>=0
-           ||
-           post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0
-           ||
-           post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0
-           ){
-            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
-          }
-        })}
-*/
-/*
-          (
-            fullName.toLowerCase().indexOf(search.toLowerCase())>=0//남양주시 와부읍 도곡리
-            ||
-            post.title.toLowerCase().indexOf(search.toLowerCase())>=0//제목
-            ||
-            post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0//남양주시
-            ||
-            post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0//와부읍 도곡리
-          )
-*/

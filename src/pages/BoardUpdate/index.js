@@ -48,7 +48,7 @@ const BoardUpdate = ({history}) => {
       dongName,
     };
     dispatch(updatePost(contents, boardId));
-    history.push('/board');
+    history.push(`/board/${link}`);
   };
 
   const auth = useSelector((state) => state.auth);//정보확인
@@ -72,7 +72,7 @@ const BoardUpdate = ({history}) => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button type="submit">작성</button>
+      <button type="submit">수정</button>
     </form>
   );
 };

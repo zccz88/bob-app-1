@@ -64,13 +64,31 @@ const BoardDetailPage = ({ history }) => {
   const link = firestore.collection("board").doc(boardId).id;
   //console.log("보드 = "+link);
 
+  const [comment, setComment] = useState([]);
+
+  const getComment = async () => {
+    const db = await firestore.collection("comment").get();
+    db.forEach((document) => {
+      const postObj = {
+        ...document.data(),
+        id: document.id,
+      };
+      setComment((prev) => [postObj, ...prev]);
+    });
+  };
+
+  useEffect(() => {
+    getComment();
+    return () => setComment([]);
+  }, [setComment]);
+
+
   return (
     <form onSubmit={onSubmitWriteForm}>
       <h1>{postData.title}</h1>
       <div>{postData.content}</div>
       <div>{postData.cityName} {postData.dongName}</div>
       <div>
-
       {
         auth.uid == postData.owner
         ?<Link key ={link} to={`/update/${link}`}><button>수정</button></Link>
