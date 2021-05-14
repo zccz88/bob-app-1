@@ -73,7 +73,7 @@ const BoardDetailPage = ({ history }) => {
       text,
       board_id:boardId
     };
-    dispatch(addComment)
+    dispatch(addComment(comments))
   }
 
   const getComment = async () => {
