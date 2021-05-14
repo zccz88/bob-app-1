@@ -1,6 +1,18 @@
 import { boardConstants } from "./constants";
 import { auth, firestore, firebaseInstance } from "../fbase";
 
+const getToday = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = ("0" + (1 + date.getMonth())).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+  const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  const seconds = date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds();
+
+  return year + month + day + " " + hours + ":" + minutes + ":" + seconds;
+}
+
 export const addPost = (contents) => {
   return (dispatch) => {
     const currentUser = auth.currentUser;
@@ -37,7 +49,7 @@ export const addComment = (comments) => {
       .add({
         ...comments,
         owner: currentUser.uid,
-        date: new Date(),
+        date: getToday(),
       })
       .then((data) => {
         dispatch({
