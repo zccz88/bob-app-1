@@ -77,7 +77,7 @@ const BoardPage = ({ history }) => {
     });
     setCityName(res.data.documents[0].address.region_2depth_name);
     setDongName(res.data.documents[0].address.region_3depth_name);
-    setfullName(res.data.documents[0].address.region_2depth_name + ' ' +  res.data.documents[0].address.region_3depth_name);
+    setfullName(setCityName + setDongName);
   };
 
   return (
@@ -90,13 +90,13 @@ const BoardPage = ({ history }) => {
           <button className="currentlocation" onChange={(e)=>setClick(e.target.value)} onClick={()=>{const count = 1; setClick(count);}}>현재위치게시글</button>
         </div>
         {posts.map((post)=>{
-          const full = fullName.toLowerCase().indexOf(search.toLowerCase())>=0;//지역 풀네임(남양주시 와부읍 도곡리)
-          const title = post.title.toLowerCase().indexOf(search.toLowerCase())>=0;//게시글 제목
-          const city = post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0;//남양주시
-          const dong =  post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0;//와부읍 도곡리
-          if(click == 0 && (title || full || city || dong)){
-            return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
-          }else if(cityName==post.cityName && (title || full || city || dong)){
+          const count = 0;
+          const title = post.title.toLowerCase().indexOf(search.toLowerCase())>=0;
+          const city = post.cityName.toLowerCase().indexOf(search.toLowerCase())>=0;
+          const dong =  post.dongName.toLowerCase().indexOf(search.toLowerCase())>=0;
+          if(click == 0 && (title || city || dong)){
+            return <Link key={post.id} to={`/board/${post.id}`}> {post.title}</Link>;
+          }else if((click == 1 && cityName==post.cityName) && (title || city || dong)){
             return <Link key={post.id} to={`/board/${post.id}`}> {post.title} </Link>;
           }
         })}
